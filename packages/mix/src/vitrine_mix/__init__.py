@@ -1,0 +1,51 @@
+from vitrine_mix.craft import (
+    CraftReport,
+    EnergyZone,
+    PacingPoint,
+    TransitionMetrics,
+    build_craft_report,
+    energy_map,
+    pacing_curve,
+    pacing_score,
+    transition_density,
+    wall_text_craft,
+)
+from vitrine_mix.energy_analysis import (
+    EnergyGradientMap,
+    EnergyProfile,
+    GradientPoint,
+    analyze_energy_profile,
+    build_energy_gradient_map,
+    smoothness_score,
+)
+from vitrine_mix.transition_matrix import (
+    MatrixEntry,
+    MixTransitionMatrix,
+    build_mix_transition_matrix,
+    matrix_entropy,
+    sequential_matrix,
+)
+
+__all__ = [
+    "CraftReport",
+    "EnergyGradientMap",
+    "EnergyProfile",
+    "EnergyZone",
+    "GradientPoint",
+    "MatrixEntry",
+    "MixTransitionMatrix",
+    "PacingPoint",
+    "TransitionMetrics",
+    "analyze_energy_profile",
+    "build_craft_report",
+    "build_energy_gradient_map",
+    "build_mix_transition_matrix",
+    "energy_map",
+    "matrix_entropy",
+    "pacing_curve",
+    "pacing_score",
+    "sequential_matrix",
+    "smoothness_score",
+    "transition_density",
+    "wall_text_craft",
+]
