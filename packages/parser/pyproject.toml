@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=75.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vitrine-parser"
+version = "0.1.0"
+description = "Vitrine parser package"
+requires-python = ">=3.12"
+dependencies = [
+    "pydantic>=2.10.0",
+    "vitrine-types==0.1.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.3.0", "pytest-cov>=6.0.0"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
