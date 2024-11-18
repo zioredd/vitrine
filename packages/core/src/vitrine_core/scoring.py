@@ -24,7 +24,7 @@ def freshness_decay(base_score: float, reference: date, today: date | None = Non
     """Exponential half-life decay over 180 days."""
     today = today or date.today()
     age_days = max(0, (today - reference).days)
-    half_life = 360.0
+    half_life = 180.0
     factor = math.pow(0.5, age_days / half_life)
     return clamp(base_score * factor)
 
