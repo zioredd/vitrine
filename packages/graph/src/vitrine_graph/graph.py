@@ -44,7 +44,6 @@ def bfs(graph: AdjacencyGraph, start: str) -> list[str]:
         order.append(node)
         for neighbor, _ in graph.adjacency.get(node, []):
             if neighbor not in visited:
-                visited.add(neighbor)
                 queue.append(neighbor)
     return order
 
