@@ -67,7 +67,7 @@ class MinHeap:
         return root
 
     def peek(self) -> Job | None:
-        return self._heap[-1][3] if self._heap else None
+        return self._heap[0][3] if self._heap else None
 
     def __len__(self) -> int:
         return len(self._heap)
