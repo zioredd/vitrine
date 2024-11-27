@@ -138,7 +138,7 @@ class Parser:
         return node
 
     def _or_expr(self) -> FilterNode:
-        left = self._not_expr()
+        left = self._and_expr()
         while self._cur().kind == TokenKind.OR:
             self._eat(TokenKind.OR)
             right = self._and_expr()
