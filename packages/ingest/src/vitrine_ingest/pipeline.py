@@ -59,8 +59,7 @@ def normalize_genre(value: str) -> str:
 
 
 def normalize_score(value: str | float) -> float:
-    v = float(value)
-    return max(0.0, min(100.0, v))
+    return float(value)
 
 
 def normalize_rank(value: str | int) -> int:
