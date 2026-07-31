@@ -399,11 +399,38 @@ class QueueFacade:
 @dataclass
 class SchedulerFacade:
     schedules: list[CronSchedule] = field(
-        default_factory=lambda: [CronSchedule.parse("0 * * * *")]
+        default_factory=lambda: [
+            CronSchedule.parse("0 * * * *"),
+            CronSchedule.parse("0 12 1 * 0"),
+        ]
+    )
+    descriptions: dict[str, str] = field(
+        default_factory=lambda: {
+            "0 * * * *": "hourly catalog refresh",
+            "0 12 1 * 0": "editorial digest on the 1st or Mondays at noon",
+        }
     )
 
-    def list_schedules(self) -> list[dict[str, Any]]:
-        return [{"expression": "0 * * * *", "description": "hourly catalog refresh"}]
+    def list_schedules(self, after: datetime | None = None) -> list[dict[str, Any]]:
+        """Return configured schedules with computed next_run (Vixie day/weekday OR)."""
+        cursor = after or datetime.now(timezone.utc).replace(tzinfo=None)
+        rows: list[dict[str, Any]] = []
+        for schedule in self.schedules:
+            expr = schedule.expression
+            try:
+                next_run = schedule.next_run(cursor).isoformat(timespec="minutes")
+            except ValueError:
+                next_run = None
+            both_constrained = not schedule.day.is_any and not schedule.weekday.is_any
+            rows.append(
+                {
+                    "expression": expr,
+                    "description": self.descriptions.get(expr, ""),
+                    "next_run": next_run,
+                    "day_weekday_mode": "or" if both_constrained else "single",
+                }
+            )
+        return rows
 
 
 @dataclass
